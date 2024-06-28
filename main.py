@@ -3,17 +3,17 @@ import numpy as np
 # what action to take?
 def phi_x(state):
     if state == 'S1':
-        return 'a1'
+        return 'A1'
     elif state == 'S2':
-        return 'a2'
+        return 'A2'
 
 # next state from action
 def next_state(state, action, P, randomness_index):
-    if action == 'a1':
-        P_current = P['a1']
+    if action == 'A1':
+        P_current = P['A1']
 
-    elif action  == 'a2':
-        P_current = P['a2']
+    elif action  == 'A2':
+        P_current = P['A2']
 
     if state == 'S1':
         P_row_current = P_current[0][:]
@@ -41,12 +41,17 @@ def next_state(state, action, P, randomness_index):
 x = ['S1', 'S2']
 
 # actions
-U = ['a1', 'a2']
+U = ['A1', 'A2']
 
 # Kernal   
 P = {
-    'a1':[[0.1, 0.9],[0.9, 0.1]],
-    'a2':[[0.2, 0.8],[0.7, 0.3]]
+    'A1':[[0.1, 0.9],[0.9, 0.1]],
+    'A2':[[0.2, 0.8],[0.7, 0.3]]
+}
+
+# Reward
+R = {
+    
 }
 
 # Initial state
