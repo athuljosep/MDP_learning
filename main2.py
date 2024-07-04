@@ -19,9 +19,9 @@ P = {
 # Rewards
 R = {
     ('S1', 'A1'): {'S1': 0.0, 'S2': 1.0},
-    ('S1', 'A2'): {'S1': 0.0, 'S2': 0.0},
+    ('S1', 'A2'): {'S1': 0.0, 'S2': 1.0},
     ('S2', 'A1'): {'S1': 0.0, 'S2': 1.0},
-    ('S2', 'A2'): {'S1': 0.0, 'S2': 0.0}
+    ('S2', 'A2'): {'S1': 0.0, 'S2': 1.0}
 }
 
 # Discount factor
@@ -31,10 +31,10 @@ gamma = 0.9
 theta = 1e-6
 
 # Number of iterations
-n_iter = 50
+n_iter = 50000
 
 # Value iteration
-Ans = mdp.value_iteration(states, actions, P, R, gamma, theta, n_iter)
+V, Ans = mdp.value_iteration(states, actions, P, R, gamma, theta, n_iter)
 print(Ans)
 
 # Extracting S1 and S2 values
@@ -51,3 +51,16 @@ plt.legend()
 plt.grid(True)
 plt.show()
 
+##############################################
+# Extracting Policy
+##############################################
+
+pi = {s: '' for s in states}
+
+def compute_expression(a):
+    return sum(P[(s, a)][s_prime] * (R[(s, a)][s_prime] + gamma * V[s_prime]) for s_prime in states)
+
+for s in states:
+    pi[s] = max(actions, key=compute_expression)
+
+print("Policy is ", pi)
